@@ -26,3 +26,27 @@ The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
 View [live demo](https://brianzinn.github.io/create-react-app-typescript-babylonjs/)
+
+
+
+## Startup notes
+
+Install typescript
+```
+npm install typescript --save-dev
+```
+
+Install dependencies
+```
+npm install
+```
+
+Start server
+```
+npm start
+```
+
+To see typescript version
+```
+npx tsc --version
+```
