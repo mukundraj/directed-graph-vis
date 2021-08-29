@@ -10,7 +10,8 @@ import { FresnelParameters } from "@babylonjs/core/Materials/fresnelParameters";
 
 import { Scene, Engine } from "react-babylonjs";
 import "./App.css";
-import Edge from "./components/Edge";
+import Nodes from "./components/Nodes";
+import Edges from "./components/Edges";
 import ColorBox from "./components/colorbox";
 
 const App: React.FC = () => {
@@ -22,11 +23,20 @@ const App: React.FC = () => {
     (Math.random() - 0.5) * 3,
   ];
 
-  const positions = new Array(50).fill(null).map(randomPosition);
+  const positions = new Array(40).fill(null).map(randomPosition);
 
   console.log(randomPosition);
   console.log(positions);
 
+  var temp = positions.map((position) => (
+    <sphere
+      name="sphere1"
+      diameter={0.1}
+      segments={16}
+      position={new Vector3(position[0], position[1], position[2])}
+    />
+  ));
+  console.log(temp);
   return (
     <div className="App">
       <header className="App-header">
@@ -41,7 +51,7 @@ const App: React.FC = () => {
           <Scene>
             <arcRotateCamera
               name="arc"
-              target={new Vector3(0, 1, 0)}
+              target={new Vector3(0, 0, 0)}
               alpha={-Math.PI / 2}
               beta={0.5 + Math.PI / 4}
               radius={4}
@@ -60,28 +70,31 @@ const App: React.FC = () => {
               shadowMinZ={1}
               shadowMaxZ={2500}
             ></directionalLight>
-            <ColorBox speed={10} pos={[-1, 3, 1]} />
-            <sphere
-              ref={sphereRef}
-              name="sphere1"
-              diameter={0.5}
-              segments={16}
-              position={new Vector3(3.0, 3.0, 3)}
-            >
-              <standardMaterial
-                name="material1"
-                specularPower={16}
-                diffuseColor={Color3.Black()}
-                emissiveColor={new Color3(0.9, 0.5, 0.5)}
-                reflectionFresnelParameters={FresnelParameters.Parse({
-                  isEnabled: true,
-                  leftColor: [1, 1, 1],
-                  rightColor: [0, 0, 0],
-                  bias: 0.1,
-                  power: 1,
-                })}
-              />
-            </sphere>
+            {/* <ColorBox speed={10} pos={[-1, 3, 1]} /> */}
+            <Nodes positions={positions} />
+            <Edges positions={positions} n_edges={20} />
+
+            {/* <sphere */}
+            {/*   ref={sphereRef} */}
+            {/*   name="sphere1" */}
+            {/*   diameter={0.5} */}
+            {/*   segments={16} */}
+            {/*   position={new Vector3(3.0, 3.0, 3)} */}
+            {/* > */}
+            {/*   <standardMaterial */}
+            {/*     name="material1" */}
+            {/*     specularPower={16} */}
+            {/*     diffuseColor={Color3.Black()} */}
+            {/*     emissiveColor={new Color3(0.9, 0.5, 0.5)} */}
+            {/*     reflectionFresnelParameters={FresnelParameters.Parse({ */}
+            {/*       isEnabled: true, */}
+            {/*       leftColor: [1, 1, 1], */}
+            {/*       rightColor: [0, 0, 0], */}
+            {/*       bias: 0.1, */}
+            {/*       power: 1, */}
+            {/*     })} */}
+            {/*   /> */}
+            {/* </sphere> */}
           </Scene>
         </Engine>
       </header>
@@ -89,3 +102,5 @@ const App: React.FC = () => {
   );
 };
 export default App;
+
+// https://stackoverflow.com/questions/22876978/loop-inside-react-jsx
