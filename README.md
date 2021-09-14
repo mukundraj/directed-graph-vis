@@ -50,3 +50,7 @@ To see typescript version
 ```
 npx tsc --version
 ```
+
+## References
+
+- Project structure https://www.taniarascia.com/react-architecture-directory-structure/
